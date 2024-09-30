@@ -1,11 +1,25 @@
+const DEFAULT_COLOR = "rgb(144, 238, 144)";
+
 function bindEvents() {
     const container = document.querySelector(".container");
     container.addEventListener("mouseover", (event) => {
-    if (event.target.classList.contains("element")) {
-        event.target.style["background-color"] = "lightcoral";
-    }
+        const element = event.target;
+        if (element.classList.contains("element")) {
+            const element_style = window.getComputedStyle(element);
+            const element_background = element_style.getPropertyValue("background-color");
+            if (element_background === DEFAULT_COLOR) // Need to colorize
+            {
+                const red = Math.floor(Math.random() * 256);
+                const green = Math.floor(Math.random() * 256);
+                const blue = Math.floor(Math.random() * 256);
+
+                element.style["background-color"] = `rgb(${red},${green},${blue})`;
+            }
+            let currentOpacity = element.style.opacity ? element.style.opacity : 1;
+            element.style["opacity"] = Math.max(0, currentOpacity - 0.1);
+        }
     });
-    
+
     const button = document.querySelector("button");
     button.addEventListener("click", () => {
         let grid_size = parseInt(prompt("Please enter the desired grid size [1-100]: ", "1"));
@@ -56,7 +70,7 @@ function clearElements() {
     rows.forEach((row) => row.remove());
 }
 
-function generateGrid (grid_size) {
+function generateGrid(grid_size) {
 
     let element_width, element_height;
     [element_width, element_height] = getElementSize(grid_size);
