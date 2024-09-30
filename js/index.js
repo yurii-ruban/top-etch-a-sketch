@@ -1,4 +1,5 @@
 const DEFAULT_COLOR = "rgb(144, 238, 144)";
+const DEFAULT_SIZE = 16;
 
 function bindEvents() {
     const container = document.querySelector(".container");
@@ -50,17 +51,11 @@ function getElementSize(elem_count) {
     const container_gap = parseInt(container_style.getPropertyValue("gap"));
     const container_padding = parseInt(container_style.getPropertyValue("padding"));
 
-
-    console.log(`Size: ${body_width} x ${body_height}`);
-    console.log(`Size button: ${button_height}`);
-
     const gap_space_horizontal = (elem_count - 1) * container_gap + 2 * container_padding + 2 * body_padding;
     const gap_space_vertical = button_height + body_gap + (elem_count - 1) * container_gap + 2 * container_padding + 2 * body_padding;
 
     const element_width = (body_width - gap_space_horizontal) / elem_count;
     const element_height = (body_height - gap_space_vertical) / elem_count;
-
-    console.log(`Item size: ${element_width} x ${element_height}`);
 
     return [element_width, element_height]
 }
@@ -95,6 +90,5 @@ function generateGrid(grid_size) {
     }
 }
 
-const DEFAULT_SIZE = 16;
 generateGrid(DEFAULT_SIZE);
 bindEvents();
